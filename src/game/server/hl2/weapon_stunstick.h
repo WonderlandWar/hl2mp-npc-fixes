@@ -12,6 +12,10 @@
 
 #include "basebludgeonweapon.h"
 
+#ifdef HL2MP
+#error hl2/weapon_stunstick.h must not be included in hl2mp. The windows compiler will use the wrong class elsewhere if it is.
+#endif
+
 #define	STUNSTICK_RANGE		75.0f
 #define	STUNSTICK_REFIRE	0.6f
 

@@ -12,7 +12,11 @@
 #include "ai_tacticalservices.h"
 #include "npc_manhack.h"
 #include "npc_metropolice.h"
+#ifdef HL2MP
+#include "hl2mp/weapon_stunstick.h"
+#else
 #include "weapon_stunstick.h"
+#endif
 #include "basegrenade_shared.h"
 #include "ai_route.h"
 #include "hl2_player.h"
@@ -574,11 +578,19 @@ void CNPC_MetroPolice::Precache( void )
 {
 	if ( HasSpawnFlags( SF_NPC_START_EFFICIENT ) )
 	{
+#ifdef HL2MP
+		SetModelName( AllocPooledString("models/hl2/police_cheaple.mdl" ) );
+#else
 		SetModelName( AllocPooledString("models/police_cheaple.mdl" ) );
+#endif
 	}
 	else
 	{
+#ifdef HL2MP
+		SetModelName( AllocPooledString("models/hl2/police.mdl") );
+#else
 		SetModelName( AllocPooledString("models/police.mdl") );
+#endif
 	}
 
 	PrecacheModel( STRING( GetModelName() ) );
@@ -621,7 +633,7 @@ void CNPC_MetroPolice::Spawn( void )
 	AddSpawnFlags( SF_NPC_FADE_CORPSE );
 #endif // _XBOX
 
-	SetModel( STRING( GetModelName() ) );
+	SetModel( GetFixedUpNPCModelName( STRING( GetModelName() ) ) );
 
 	SetHullType(HULL_HUMAN);
 	SetHullSizeNormal();
@@ -2883,16 +2895,12 @@ void CNPC_MetroPolice::OnAnimEventShove( void )
 //-----------------------------------------------------------------------------
 void CNPC_MetroPolice::OnAnimEventBatonOn( void )
 {
-#ifndef HL2MP
-
 	CWeaponStunStick *pStick = dynamic_cast<CWeaponStunStick *>(GetActiveWeapon());
 
 	if ( pStick )
 	{
 		pStick->SetStunState( true );
 	}
-#endif
-
 }
 
 //-----------------------------------------------------------------------------
@@ -2900,15 +2908,12 @@ void CNPC_MetroPolice::OnAnimEventBatonOn( void )
 //-----------------------------------------------------------------------------
 void CNPC_MetroPolice::OnAnimEventBatonOff( void )
 {
-#ifndef HL2MP
-
 	CWeaponStunStick *pStick = dynamic_cast<CWeaponStunStick *>(GetActiveWeapon());
 	
 	if ( pStick )
 	{
 		pStick->SetStunState( false );
 	}
-#endif
 }
 
 //-----------------------------------------------------------------------------
@@ -5051,13 +5056,10 @@ bool CNPC_MetroPolice::HasBaton( void )
 //-----------------------------------------------------------------------------
 bool CNPC_MetroPolice::BatonActive( void )
 {
-#ifndef HL2MP
-
 	CWeaponStunStick *pStick = dynamic_cast<CWeaponStunStick *>(GetActiveWeapon());
 
 	if ( pStick )
 		return pStick->GetStunState();
-#endif
 
 	return false;
 }
