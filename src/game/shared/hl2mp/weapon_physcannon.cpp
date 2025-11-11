@@ -447,6 +447,7 @@ void CGrabController::AttachEntity( CBasePlayer *pPlayer, CBaseEntity *pEntity, 
 	Vector position;
 	QAngle angles;
 	pPhys->GetPosition( &position, &angles );
+	m_attachedEntity = pEntity;
 	// If it has a preferred orientation, use that instead.
 #ifndef CLIENT_DLL
 	Pickup_GetPreferredCarryAngles( pEntity, pPlayer, pPlayer->EntityToWorldTransform(), angles );
@@ -465,7 +466,8 @@ void CGrabController::AttachEntity( CBasePlayer *pPlayer, CBaseEntity *pEntity, 
 	pPhys->Wake();
 	PhysSetGameFlags( pPhys, FVPHYSICS_PLAYER_HELD );
 	SetTargetPosition( position, angles );
-	m_attachedEntity = pEntity;
+	// HL2MP COOP: Moving this above Pickup_GetPreferredCarryAngles
+	//m_attachedEntity = pEntity;
 	IPhysicsObject *pList[VPHYSICS_MAX_OBJECT_LIST_COUNT];
 	int count = pEntity->VPhysicsGetObjectList( pList, ARRAYSIZE(pList) );
 	m_flLoadWeight = 0;
@@ -3266,7 +3268,7 @@ CBaseEntity *GetPlayerHeldEntity( CBasePlayer *pPlayer )
 
 CBasePlayer *GetPlayerHoldingEntity( CBaseEntity *pEntity )
 {
-	for ( int i = i; i <= gpGlobals->maxClients; ++i )
+	for ( int i = 1; i <= gpGlobals->maxClients; ++i )
 	{
 		CBasePlayer* pPlayer = UTIL_PlayerByIndex( i );
 		if ( !pPlayer )

@@ -22,6 +22,9 @@
 #include "beam_shared.h"
 #include "props.h"
 #include "particle_parse.h"
+#ifdef HL2MP
+#include "hl2mp/weapon_physcannon.h"
+#endif
 
 #ifdef PORTAL
 	#include "prop_portal_shared.h"
@@ -1890,7 +1893,11 @@ QAngle CNPC_FloorTurret::PreferredCarryAngles( void )
 	static QAngle g_prefAngles;
 
 	Vector vecUserForward;
+#ifdef HL2MP
+	CBasePlayer *pPlayer = GetPlayerHoldingEntity( this );
+#else
 	CBasePlayer *pPlayer = AI_GetSinglePlayer();
+#endif
 	pPlayer->EyeVectors( &vecUserForward );
 
 	// If we're looking up, then face directly forward
