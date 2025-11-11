@@ -2,7 +2,7 @@
 {
 	game	"Half-Life 2: Deathmatch Coop"
 	title	"HALF+LIFE'"
-	title2	"deathmatch coop"
+	title2	"deathmatch"
 	type multiplayer_only
 	nomodels 0
 	nohimodel 1
