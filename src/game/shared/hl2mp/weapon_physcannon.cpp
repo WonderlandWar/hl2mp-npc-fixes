@@ -3250,6 +3250,37 @@ CBaseEntity *PhysCannonGetHeldEntity( CBaseCombatWeapon *pActiveWeapon )
 
 	return NULL;
 }
+#ifdef GAME_DLL
+CBaseEntity *GetPlayerHeldEntity( CBasePlayer *pPlayer )
+{
+	CBaseEntity *pObject = NULL;
+	CPlayerPickupController *pPlayerPickupController = (CPlayerPickupController *)(pPlayer->GetUseEntity());
+
+	if ( pPlayerPickupController )
+	{
+		pObject = pPlayerPickupController->GetGrabController().GetAttached();
+	}
+
+	return pObject;
+}
+
+CBasePlayer *GetPlayerHoldingEntity( CBaseEntity *pEntity )
+{
+	for ( int i = i; i <= gpGlobals->maxClients; ++i )
+	{
+		CBasePlayer* pPlayer = UTIL_PlayerByIndex( i );
+		if ( !pPlayer )
+			continue;
+
+		if ( GetPlayerHeldEntity( pPlayer ) == pEntity || PhysCannonGetHeldEntity( pPlayer->GetActiveWeapon() ) == pEntity )
+		{
+			return pPlayer;
+		}
+	}
+	
+	return NULL;
+}
+#endif
 
 float PlayerPickupGetHeldObjectMass( CBaseEntity *pPickupControllerEntity, IPhysicsObject *pHeldObject )
 {

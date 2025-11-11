@@ -7,6 +7,9 @@
 //=============================================================================//
 #include "cbase.h"
 #include "player_pickup.h"
+#ifdef HL2MP
+#include "hl2mp/weapon_physcannon.h"
+#endif
 
 // memdbgon must be the last include file in a .cpp file!!!
 #include "tier0/memdbgon.h"
@@ -24,7 +27,11 @@ void Pickup_ForcePlayerToDropThisObject( CBaseEntity *pTarget )
 
 	if ( pPhysics->GetGameFlags() & FVPHYSICS_PLAYER_HELD )
 	{
+#ifdef HL2MP
+		CBasePlayer* pPlayer = GetPlayerHoldingEntity( pTarget );
+#else
 		CBasePlayer *pPlayer = UTIL_GetLocalPlayer();
+#endif
 		pPlayer->ForceDropOfCarriedPhysObjects( pTarget );
 	}
 }
