@@ -264,3 +264,22 @@ Vector VecCheckThrow ( CBaseEntity *pEdict, const Vector &vecSpot1, Vector vecSp
 
 	return vecGrenadeVel;
 }
+
+const char *GetFixedUpNPCModelName( const char *pszModel )
+{
+#ifdef HL2MP
+	if ( !stricmp( "models/combine_soldier.mdl", pszModel ) )
+	{
+		return "models/hl2/combine_soldier.mdl";
+	}
+	else if ( !stricmp( "models/combine_super_soldier.mdl", pszModel ) )
+	{
+		return "models/hl2/combine_super_soldier.mdl";
+	}
+	else if ( !stricmp( "models/combine_soldier_prisonguard.mdl", pszModel ) )
+	{
+		return "models/hl2/combine_soldier_prisonguard.mdl";
+	}
+#endif
+	return pszModel;
+}

@@ -437,6 +437,8 @@ bool FBoxVisible ( CBaseEntity *pLooker, CBaseEntity *pTarget, Vector &vecTarget
 float DeltaV( float v0, float v1, float d );
 float ChangeDistance( float flInterval, float flGoalDistance, float flGoalVelocity, float flCurVelocity, float flIdealVelocity, float flAccelRate, float &flNewDistance, float &flNewVelocity );
 
+const char *GetFixedUpNPCModelName( const char *pszModel );
+
 //=============================================================================
 //
 // class CAI_Manager
