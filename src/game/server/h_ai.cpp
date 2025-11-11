@@ -290,6 +290,31 @@ const char *GetFixedUpNPCModelName( const char *pszModel )
 	{
 		return "models/hl2/police_cheaple.mdl";
 	}
+	// Specific characters
+	else if ( !stricmp( "models/alyx.mdl", pszModel ) )
+	{
+		return "models/hl2/alyx.mdl";
+	}
+	else if ( !stricmp( "models/barney.mdl", pszModel ) )
+	{
+		return "models/hl2/barney.mdl";
+	}
+	else if ( !stricmp( "models/barney.mdl", pszModel ) )
+	{
+		return "models/hl2/barney.mdl";
+	}
+	// Citizen models (must be last)
+	else
+	{
+		const char *dir = strstr( "humans/group", pszModel );
+		if ( dir )
+		{
+			char sz[64];
+			Q_strncpy( sz, "hl2/humans/group", 16 );
+			return AllocPooledString( sz ).ToCStr();
+		}
+		return pszModel;
+	}
 #endif
 	return pszModel;
 }

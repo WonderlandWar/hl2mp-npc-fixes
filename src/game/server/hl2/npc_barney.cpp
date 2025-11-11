@@ -33,9 +33,11 @@
 
 // memdbgon must be the last include file in a .cpp file!!!
 #include "tier0/memdbgon.h"
-
+#ifdef HL2MP
+#define BARNEY_MODEL "models/hl2/barney.mdl"
+#else
 #define BARNEY_MODEL "models/barney.mdl"
-
+#endif
 ConVar	sk_barney_health( "sk_barney_health","0");
 
 //=========================================================

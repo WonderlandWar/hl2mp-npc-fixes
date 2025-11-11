@@ -388,7 +388,7 @@ void CNPC_Citizen::Precache()
 	if ( !npc_citizen_dont_precache_all.GetBool() )
 		PrecacheAllOfType( m_Type );
 	else
-		PrecacheModel( STRING( GetModelName() ) );
+		PrecacheModel( GetFixedUpNPCModelName( STRING( GetModelName() ) ) );
 
 	if ( NameMatches( "matt" ) )
 		PrecacheModel( "models/props_canal/mattpipe.mdl" );
@@ -435,6 +435,9 @@ void CNPC_Citizen::PrecacheAllOfType( CitizenType_t type )
 	{
 		if ( !IsExcludedHead( type, false, i ) )
 		{
+#ifdef HL2MP
+			PrecacheModel( CFmtStr( "models/hl2/Humans/%s/%s", (const char *)(CFmtStr(g_ppszModelLocs[m_Type], "")), g_ppszRandomHeads[i] ) );
+#endif
 			PrecacheModel( CFmtStr( "models/Humans/%s/%s", (const char *)(CFmtStr(g_ppszModelLocs[m_Type], "")), g_ppszRandomHeads[i] ) );
 		}
 	}
@@ -445,6 +448,9 @@ void CNPC_Citizen::PrecacheAllOfType( CitizenType_t type )
 		{
 			if ( !IsExcludedHead( type, true, i ) )
 			{
+#ifdef HL2MP
+				PrecacheModel( CFmtStr( "models/hl2/Humans/%s/%s", (const char *)(CFmtStr(g_ppszModelLocs[m_Type], "m")), g_ppszRandomHeads[i] ) );
+#endif
 				PrecacheModel( CFmtStr( "models/Humans/%s/%s", (const char *)(CFmtStr(g_ppszModelLocs[m_Type], "m")), g_ppszRandomHeads[i] ) );
 			}
 		}
@@ -632,7 +638,11 @@ void CNPC_Citizen::SelectModel()
 		RemoveSpawnFlags( SF_CITIZEN_RANDOM_HEAD | SF_CITIZEN_RANDOM_HEAD_MALE | SF_CITIZEN_RANDOM_HEAD_FEMALE );
 		if( HasSpawnFlags( SF_NPC_START_EFFICIENT ) )
 		{
+#ifdef HL2MP
+			SetModelName( AllocPooledString("models/hl2/humans/male_cheaple.mdl" ) );
+#else
 			SetModelName( AllocPooledString("models/humans/male_cheaple.mdl" ) );
+#endif
 			return;
 		}
 		else
@@ -714,7 +724,11 @@ void CNPC_Citizen::SelectModel()
 	// Unique citizen models are left alone
 	if ( m_Type != CT_UNIQUE )
 	{
+#ifdef HL2MP
+		SetModelName( AllocPooledString( CFmtStr( "models/hl2/Humans/%s/%s", (const char *)(CFmtStr(g_ppszModelLocs[ m_Type ], ( IsMedic() ) ? "m" : "" )), pszModelName ) ) );
+#else
 		SetModelName( AllocPooledString( CFmtStr( "models/Humans/%s/%s", (const char *)(CFmtStr(g_ppszModelLocs[ m_Type ], ( IsMedic() ) ? "m" : "" )), pszModelName ) ) );
+#endif
 	}
 }
 
