@@ -96,7 +96,11 @@ void CNPC_CombineS::Precache()
 {
 	const char *pModelName = GetFixedUpNPCModelName( STRING( GetModelName() ) );
 
-	if( !Q_stricmp( pModelName, "models/combine_super_soldier.mdl" ) )
+	if( !Q_stricmp( pModelName, "models/combine_super_soldier.mdl" )
+#ifdef HL2MP
+	|| !Q_stricmp( pModelName, "models/hl2/combine_super_soldier.mdl" )
+#endif
+		)
 	{
 		m_fIsElite = true;
 	}
@@ -105,9 +109,10 @@ void CNPC_CombineS::Precache()
 		m_fIsElite = false;
 	}
 
-	if( !pModelName )
+	if( !GetModelName() )
 	{
 #ifdef HL2MP
+		pModelName = "models/hl2/combine_soldier.mdl";
 		SetModelName( MAKE_STRING( "models/hl2/combine_soldier.mdl" ) );
 #else
 		SetModelName( MAKE_STRING( "models/combine_soldier.mdl" ) );
