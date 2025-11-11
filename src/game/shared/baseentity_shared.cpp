@@ -1605,7 +1605,7 @@ void CBaseEntity::FireBullets( const FireBulletsInfo_t &info )
 	bool bDoServerEffects = true;
 
 #if defined( HL2MP ) && defined( GAME_DLL )
-	bDoServerEffects = false;
+	bDoServerEffects = !IsPlayer();
 #endif
 
 #if defined( GAME_DLL )
