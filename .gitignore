@@ -505,3 +505,5 @@ FodyWeavers.xsd
 game/hl2mp_coop/voice_ban.dt
 game/hl2mp_coop/stats.txt
 game/hl2mp_coop/cfg/server_blacklist.txt
+
+game/hl2mp_coop/maps/*
