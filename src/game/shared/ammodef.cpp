@@ -273,6 +273,32 @@ void CAmmoDef::AddAmmoType(char const* name, int damageType, int tracerType,
 }
 
 //-----------------------------------------------------------------------------
+// Purpose: Add an ammo type with it's damage & carrying capability specified via integers
+//-----------------------------------------------------------------------------
+void CAmmoDef::AddAmmoType(char const* name, int damageType, int tracerType, 
+	int plr_dmg, char const* npc_cvar, int carry, float physicsForceImpulse,
+	int nFlags, int minSplashSize, int maxSplashSize )
+{
+	if ( AddAmmoType( name, damageType, tracerType, nFlags, minSplashSize, maxSplashSize ) == false )
+		return;
+
+	m_AmmoType[m_nAmmoIndex].pPlrDmg = plr_dmg;
+	if (npc_cvar)
+	{
+		m_AmmoType[m_nAmmoIndex].pNPCDmgCVar	= cvar->FindVar(npc_cvar);
+		if (!m_AmmoType[m_nAmmoIndex].pNPCDmgCVar)
+		{
+			Msg("ERROR: Ammo (%s) found no CVar named (%s)\n",name,npc_cvar);
+		}
+		m_AmmoType[m_nAmmoIndex].pNPCDmg = USE_CVAR;
+	}
+	m_AmmoType[m_nAmmoIndex].pMaxCarry = carry;
+	m_AmmoType[m_nAmmoIndex].physicsForceImpulse = physicsForceImpulse;
+
+	m_nAmmoIndex++;
+}
+
+//-----------------------------------------------------------------------------
 // Purpose: Constructor
 // Input  :
 // Output :
