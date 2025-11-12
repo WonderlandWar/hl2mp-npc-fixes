@@ -82,7 +82,11 @@ void CNPC_Kleiner::Spawn()
 	char *szModel = (char *)STRING( GetModelName() );
 	if (!szModel || !*szModel)
 	{
+#ifdef HL2MP
+		szModel = "models/hl2/kleiner.mdl";
+#else
 		szModel = "models/kleiner.mdl";
+#endif
 		SetModelName( AllocPooledString(szModel) );
 	}
 

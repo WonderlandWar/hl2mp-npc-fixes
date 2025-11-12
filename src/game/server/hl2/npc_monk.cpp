@@ -243,8 +243,11 @@ Activity CNPC_Monk::NPC_TranslateActivity( Activity eNewActivity )
 //-----------------------------------------------------------------------------
 void CNPC_Monk::Precache()
 {
+#ifdef HL2MP
+	PrecacheModel( "models/hl2/Monk.mdl" );
+#else
 	PrecacheModel( "models/Monk.mdl" );
-	
+#endif	
 	PrecacheScriptSound( "NPC_Citizen.FootstepLeft" );
 	PrecacheScriptSound( "NPC_Citizen.FootstepRight" );
 
@@ -260,9 +263,11 @@ void CNPC_Monk::Spawn()
 	Precache();
 
 	BaseClass::Spawn();
-
+#ifdef HL2MP
+	SetModel( "models/hl2/Monk.mdl" );
+#else
 	SetModel( "models/Monk.mdl" );
-
+#endif
 	SetHullType(HULL_HUMAN);
 	SetHullSizeNormal();
 

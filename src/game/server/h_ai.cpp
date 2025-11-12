@@ -303,6 +303,42 @@ const char *GetFixedUpNPCModelName( const char *pszModel )
 	{
 		return "models/hl2/barney.mdl";
 	}
+	else if ( !stricmp( "models/odessa.mdl", pszModel ) )
+	{
+		return "models/hl2/odessa.mdl";
+	}
+	else if ( !stricmp( "models/kleiner.mdl", pszModel ) )
+	{
+		return "models/hl2/kleiner.mdl";
+	}
+	else if ( !stricmp( "models/mossman.mdl", pszModel ) )
+	{
+		return "models/hl2/mossman.mdl";
+	}
+	else if ( !stricmp( "models/monk.mdl", pszModel ) )
+	{
+		return "models/hl2/monk.mdl";
+	}
+	else if ( !stricmp( "models/gman.mdl", pszModel ) )
+	{
+		return "models/hl2/gman.mdl";
+	}
+	else if ( !stricmp( "models/gman_high.mdl", pszModel ) )
+	{
+		return "models/hl2/gman_high.mdl";
+	}
+	else if ( !stricmp( "models/breen.mdl", pszModel ) )
+	{
+		return "models/hl2/breen.mdl";
+	}
+	else if ( !stricmp( "models/breen_monitor.mdl", pszModel ) )
+	{
+		return "models/hl2/breen_monitor.mdl";
+	}
+	else if ( !stricmp( "models/eli.mdl", pszModel ) )
+	{
+		return "models/hl2/eli.mdl";
+	}
 	// Citizen models (must be last)
 	else
 	{

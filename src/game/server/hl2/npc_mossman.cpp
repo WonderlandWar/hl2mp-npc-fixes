@@ -93,9 +93,11 @@ void CNPC_Mossman::Spawn()
 	Precache();
 
 	BaseClass::Spawn();
-
+#ifdef HL2MP
+	SetModel( "models/hl2/mossman.mdl" );
+#else
 	SetModel( "models/mossman.mdl" );
-
+#endif
 	SetHullType(HULL_HUMAN);
 	SetHullSizeNormal();
 
@@ -119,8 +121,11 @@ void CNPC_Mossman::Spawn()
 //-----------------------------------------------------------------------------
 void CNPC_Mossman::Precache()
 {
+#ifdef HL2MP
+	PrecacheModel( "models/hl2/mossman.mdl" );
+#else
 	PrecacheModel( "models/mossman.mdl" );
-	
+#endif	
 	BaseClass::Precache();
 }	
 

@@ -96,9 +96,11 @@ void CNPC_GMan::Spawn()
 	Precache();
 
 	BaseClass::Spawn();
-
+#ifdef HL2MP
+	SetModel( "models/hl2/gman.mdl" );
+#else
 	SetModel( "models/gman.mdl" );
-
+#endif
 	SetHullType(HULL_HUMAN);
 	SetHullSizeNormal();
 
@@ -123,8 +125,11 @@ void CNPC_GMan::Spawn()
 //-----------------------------------------------------------------------------
 void CNPC_GMan::Precache()
 {
+#ifdef HL2MP
+	PrecacheModel( "models/hl2/gman.mdl" );
+#else
 	PrecacheModel( "models/gman.mdl" );
-	
+#endif	
 	BaseClass::Precache();
 }	
 
