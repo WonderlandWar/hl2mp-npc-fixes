@@ -871,18 +871,25 @@ float CBounceBomb::FindNearestNPC()
 			}
 		}
 	}
-
+#ifdef HL2MP
+	for ( int i = 1; i <= gpGlobals->maxClients; ++i )
+#else
 	// finally, check the player.
 	CBasePlayer *pPlayer = UTIL_GetLocalPlayer();
-
-	if( pPlayer && !(pPlayer->GetFlags() & FL_NOTARGET) )
+#endif
 	{
-		float flDist = (pPlayer->GetAbsOrigin() - GetAbsOrigin() ).LengthSqr();
-
-		if( flDist < flNearest && FVisible( pPlayer, MASK_SOLID_BRUSHONLY ) )
+#ifdef HL2MP
+		CBasePlayer *pPlayer = UTIL_PlayerByIndex( i );
+#endif
+		if( pPlayer && !(pPlayer->GetFlags() & FL_NOTARGET) )
 		{
-			flNearest = flDist;
-			SetNearestNPC( pPlayer );
+			float flDist = (pPlayer->GetAbsOrigin() - GetAbsOrigin() ).LengthSqr();
+
+			if( flDist < flNearest && FVisible( pPlayer, MASK_SOLID_BRUSHONLY ) )
+			{
+				flNearest = flDist;
+				SetNearestNPC( pPlayer );
+			}
 		}
 	}
 
