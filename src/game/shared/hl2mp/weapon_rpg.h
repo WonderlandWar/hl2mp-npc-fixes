@@ -198,7 +198,12 @@ public:
 	int		GetMaxBurst() { return 1; }
 	float	GetMinRestTime() { return 4.0; }
 	float	GetMaxRestTime() { return 4.0; }
+#ifndef CLIENT_DLL
+	bool	WeaponLOSCondition( const Vector &ownerPos, const Vector &targetPos, bool bSetConditions );
+	int		WeaponRangeAttack1Condition( float flDot, float flDist );
 
+	void	Operator_HandleAnimEvent( animevent_t *pEvent, CBaseCombatCharacter *pOperator );
+#endif
 	void	StartGuiding( void );
 	void	StopGuiding( void );
 	void	ToggleGuiding( void );
@@ -213,11 +218,14 @@ public:
 	void	CreateLaserPointer( void );
 	void	UpdateLaserPosition( Vector vecMuzzlePos = vec3_origin, Vector vecEndPos = vec3_origin );
 	Vector	GetLaserPosition( void );
-
+#ifndef CLIENT_DLL
 	// NPC RPG users cheat and directly set the laser pointer's origin
 	void	UpdateNPCLaserPosition( const Vector &vecTarget );
 	void	SetNPCLaserPosition( const Vector &vecTarget );
 	const Vector &GetNPCLaserPosition( void );
+
+	int		CapabilitiesGet( void ) { return bits_CAP_WEAPON_RANGE_ATTACK1; }
+#endif
 	
 #ifdef CLIENT_DLL
 
@@ -251,11 +259,15 @@ protected:
 	CNetworkVar( bool, m_bInitialStateUpdate );
 	CNetworkVar( bool, m_bGuiding );
 	CNetworkVar( bool, m_bHideGuiding );
-
-	CNetworkHandle( CBaseEntity,	m_hMissile );
+#ifdef CLIENT_DLL
+	CNetworkHandle( CBaseCombatCharacter, m_hMissile );
+#else
+	CNetworkHandle( CMissile,	m_hMissile );
+#endif
 	CNetworkVar(	Vector,			m_vecLaserDot );
 
 #ifndef CLIENT_DLL
+	Vector				m_vecNPCLaserDot;
 	CHandle<CLaserDot>	m_hLaserDot;
 #endif
 
