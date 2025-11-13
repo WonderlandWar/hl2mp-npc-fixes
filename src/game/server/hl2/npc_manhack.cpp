@@ -3007,9 +3007,15 @@ void CNPC_Manhack::OnPhysGunPickup( CBasePlayer *pPhysGunUser, PhysGunPickup_t r
 	}
 	else
 	{
-		// Suppress collisions between the manhack and the player; we're currently bumping
-		// almost certainly because it's not purely a physics object.
-		SetOwnerEntity( pPhysGunUser );
+#ifdef HL2MP // Screws up spawns in coop
+		if ( !GetOwnerEntity() )
+#endif
+		{
+			// Suppress collisions between the manhack and the player; we're currently bumping
+			// almost certainly because it's not purely a physics object.
+			SetOwnerEntity( pPhysGunUser );
+		}
+
 		m_bHeld = true;
 	}
 }
@@ -3022,8 +3028,13 @@ void CNPC_Manhack::OnPhysGunPickup( CBasePlayer *pPhysGunUser, PhysGunPickup_t r
 //-----------------------------------------------------------------------------
 void CNPC_Manhack::OnPhysGunDrop( CBasePlayer *pPhysGunUser, PhysGunDrop_t Reason )
 {
-	// Stop suppressing collisions between the manhack and the player
-	SetOwnerEntity( NULL );
+#ifdef HL2MP // Screws up spawns in coop
+	if ( GetOwnerEntity() && GetOwnerEntity()->IsPlayer() )
+#endif
+	{
+		// Stop suppressing collisions between the manhack and the player
+		SetOwnerEntity( NULL );
+	}
 
 	m_bHeld = false;
 
