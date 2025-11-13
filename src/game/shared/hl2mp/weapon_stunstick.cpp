@@ -27,7 +27,8 @@
 
 	extern void DrawHalo( IMaterial* pMaterial, const Vector &source, float scale, float const *color, float flHDRColorScale );
 	extern void FormatViewModelAttachment( Vector &vOrigin, bool bInverse );
-
+#else
+ConVar    sk_npc_dmg_stunstick	( "sk_npc_dmg_stunstick","0");
 #endif
 
 #include "weapon_stunstick.h"
@@ -130,6 +131,10 @@ void CWeaponStunStick::Precache()
 //-----------------------------------------------------------------------------
 float CWeaponStunStick::GetDamageForActivity( Activity hitActivity )
 {
+#ifndef CLIENT_DLL
+	if ( GetOwner() && GetOwner()->IsNPC() )
+		return sk_npc_dmg_stunstick.GetFloat();
+#endif
 	return 40.0f;
 }
 

@@ -28,7 +28,9 @@
 
 #define	CROWBAR_RANGE	75.0f
 #define	CROWBAR_REFIRE	0.4f
-
+#ifndef CLIENT_DLL
+ConVar    sk_npc_dmg_crowbar		( "sk_npc_dmg_crowbar","0");
+#endif
 
 //-----------------------------------------------------------------------------
 // CWeaponCrowbar
@@ -77,6 +79,10 @@ CWeaponCrowbar::CWeaponCrowbar( void )
 //-----------------------------------------------------------------------------
 float CWeaponCrowbar::GetDamageForActivity( Activity hitActivity )
 {
+#ifndef CLIENT_DLL
+	if ( GetOwner() && GetOwner()->IsNPC() )
+		return sk_npc_dmg_crowbar.GetFloat();
+#endif
 	return 25.0f;
 }
 
