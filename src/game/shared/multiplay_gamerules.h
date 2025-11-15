@@ -224,13 +224,13 @@ public:
 	virtual void	ClientCommandKeyValues( edict_t *pEntity, KeyValues *pKeyValues );
 
 public:
-
+#ifndef HL2MP // This simply existing causes a crash
 	struct ResponseRules_t
 	{
 		CUtlVector<IResponseSystem*> m_ResponseSystems;
 	};
 	CUtlVector<ResponseRules_t>	m_ResponseRules;
-
+#endif
 	virtual void InitCustomResponseRulesDicts()	{}
 	virtual void ShutdownCustomResponseRulesDicts() {}
 
