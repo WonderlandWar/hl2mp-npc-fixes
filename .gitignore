@@ -508,6 +508,6 @@ game/hl2mp_coop/cfg/server_blacklist.txt
 
 game/hl2mp_coop/maps/*
 game/hl2mp_coop/cfg/settings.scr
-game/hl2mp_coop/downloadlists/dm_lockdown.lst
+game/hl2mp_coop/downloadlists/*
 game/hl2mp_coop/ServerConfig.vdf
 game/hl2mp_coop/textwindow_temp.html
