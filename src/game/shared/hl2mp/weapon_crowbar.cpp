@@ -80,7 +80,7 @@ CWeaponCrowbar::CWeaponCrowbar( void )
 float CWeaponCrowbar::GetDamageForActivity( Activity hitActivity )
 {
 #ifndef CLIENT_DLL
-	if ( GetOwner() && GetOwner()->IsNPC() )
+	if ( GetOwner() && GetOwner()->IsNPC() && sk_npc_dmg_crowbar.GetFloat() != 0.0f )
 		return sk_npc_dmg_crowbar.GetFloat();
 #endif
 	return 25.0f;

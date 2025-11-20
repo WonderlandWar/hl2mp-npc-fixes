@@ -132,7 +132,7 @@ void CWeaponStunStick::Precache()
 float CWeaponStunStick::GetDamageForActivity( Activity hitActivity )
 {
 #ifndef CLIENT_DLL
-	if ( GetOwner() && GetOwner()->IsNPC() )
+	if ( GetOwner() && GetOwner()->IsNPC() && sk_npc_dmg_stunstick.GetFloat() != 0.0f )
 		return sk_npc_dmg_stunstick.GetFloat();
 #endif
 	return 40.0f;
